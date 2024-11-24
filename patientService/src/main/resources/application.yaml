@@ -2,12 +2,22 @@ spring:
   application:
     name: patientService
   datasource:
+<<<<<<< HEAD
     url: jdbc:mysql://127.0.10.11:3306/patient
     username: root
     password: 123456
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     show-sql: true
+=======
+    url: jdbc:mysql://127.0.10.11:3306/
+    username: 
+    password: 
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MYSQL8Dialect
+>>>>>>> c16da9b4506cb0939a5bd0aebb25635cd8a025ea
 
 server:
   port: 8081
@@ -15,9 +25,13 @@ server:
 management:
   tracing:
     sampling:
+<<<<<<< HEAD
       probability: 0.0
       
 eureka:
   client:
     enabled: false
+=======
+      probability: 1.0
+>>>>>>> c16da9b4506cb0939a5bd0aebb25635cd8a025ea
 
