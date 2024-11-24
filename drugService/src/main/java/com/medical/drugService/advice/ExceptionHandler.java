@@ -26,5 +26,5 @@ public class ExceptionHandler extends ResponseEntityExceptionHandler{
 	@org.springframework.web.bind.annotation.ExceptionHandler(SQLException.class)
 	public ResponseEntity<Object> sqlExp(SQLException exp){
 		return new ResponseEntity<Object>(exp.getMessage(),HttpStatus.EXPECTATION_FAILED);
-	}
+	} 
 }
