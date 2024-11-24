@@ -20,7 +20,7 @@ public class PrescriberRespDto {
 private int id;
 	
 	private String name;
-	@JsonFormat(pattern = "EEE MMM dd yyyy HH:mm:ss 'GMT'Z (z)")
+	@JsonFormat(pattern = "EEE MMM dd yyyy HH:mm:ss 'GMT'Z (z)") //change the date format
 	private Date dob;
 	private String gender;
 	private String type;

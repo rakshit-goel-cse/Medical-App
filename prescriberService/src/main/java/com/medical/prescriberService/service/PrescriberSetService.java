@@ -22,7 +22,7 @@ public class PrescriberSetService {
 	
 	@Transactional
 	public boolean createNewPrescriber(PrescriberRespDto dto) {
-		PrescriberEntity newPre= presRepo.save(
+		int id= presRepo.save(
 					PrescriberEntity.builder()
 						.dob(dto.getDob())
 						.gender(dto.getGender())
@@ -30,7 +30,7 @@ public class PrescriberSetService {
 						.name(dto.getName())
 						.type(dto.getType())
 						.build()
-				);
+				).getId();
  
 		//if address data present with prescriber info
 		if(null!=dto.getAddress() && !dto.getAddress().isEmpty()) {
@@ -43,7 +43,7 @@ public class PrescriberSetService {
 										.addLine2(data.getAddLine2())
 										.city(data.getCity())
 										.isActive("Y")
-										.prescriberId(newPre.getId())
+										.prescriberId(id)
 										.zipCode(data.getZipCode())
 										.state(data.getState())
 										.build()
