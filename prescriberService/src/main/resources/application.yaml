@@ -2,20 +2,13 @@ spring:
   application:
     name: prescriberService
   datasource:
-<<<<<<< HEAD
     url: jdbc:mysql://127.0.10.11:3306/prescriber
     username: root
     password: 123456
-  jpa:
-    properties:
-      hibernate:
-        dialect: org.hibernate.dialect.MYSQL8Dialect
-=======
-    url:
-    username: 
-    password: 
-    driver-class-name: 
->>>>>>> c16da9b4506cb0939a5bd0aebb25635cd8a025ea
+
+eureka:
+  client:
+    enabled: false
 
 server:
   port: 8082
@@ -23,6 +16,7 @@ server:
 management:
   tracing:
     sampling:
-      probability: 1.0
+      probability: 0.0
+      
 
 
