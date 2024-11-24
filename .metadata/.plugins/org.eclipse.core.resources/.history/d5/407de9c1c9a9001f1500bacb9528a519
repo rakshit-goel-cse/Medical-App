@@ -1,0 +1,17 @@
+package com.medical.patientService.dto;
+
+import lombok.Data;
+
+@Data
+public class PatientAddressDTO {
+
+	private String addLine1;
+	
+	private String addLine2;
+	
+	private String city;
+	
+	private String state;
+	
+	private int zipcode;
+}

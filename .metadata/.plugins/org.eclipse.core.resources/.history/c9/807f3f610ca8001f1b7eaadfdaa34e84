@@ -1,0 +1,17 @@
+spring:
+  application:
+    name: drugService
+  datasource:
+    url:
+    username: 
+    password: 
+    driver-class-name: 
+
+server:
+  port: 8084
+  
+management:
+  tracing:
+    sampling:
+      probability: 1.0
+

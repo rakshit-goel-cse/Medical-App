@@ -1,0 +1,25 @@
+package com.medical.patientService.exception;
+
+public class InvalidIdException extends RuntimeException {
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	public InvalIdIdException() {
+		super();
+	}
+	
+	public InvalIdIdException(String msg) {
+		super(msg);
+	}
+
+	public InvalIdIdException(String msg,Throwable th) {
+		super(msg,th);
+	}
+	
+	public InvalIdIdException(Throwable th) {
+		super(th);
+	}
+}

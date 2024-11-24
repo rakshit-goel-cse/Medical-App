@@ -1,0 +1,33 @@
+package com.medical.patientService.entity;
+
+import java.sql.Date;
+import java.util.List;
+
+import jakarta.annotation.Generated;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Entity
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class PatientEntity {
+	
+	@Id
+	@Generated(value = GenerationType.AUTO)
+	private int id;
+	
+	private String name;	
+	private Date dob;
+	private int height;
+	private int weight;
+	private char gender;
+	private char is_active;
+	
+	private List<PatientAddressEntity> patientAdd;
+	
+}

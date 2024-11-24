@@ -1,0 +1,37 @@
+package com.medical.patientService.entity;
+
+import jakarta.annotation.Nonnull;
+import jakarta.persistence.Entity;
+import jakarta.persistence.ForeignKey;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+
+@Entity
+@Data
+@AllArgsConstructor
+public class PatientAddressEntity {
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private int id;
+	
+	@Nonnull
+	private String addLine1;
+	private String addLine2;
+	
+	@Nonnull
+	private String city;
+	
+	@Nonnull
+	private String state;
+	
+	@Nonnull
+	private int zipcode;
+	
+	private char is_active;
+	
+	private int patient_id;
+}

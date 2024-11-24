@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: patientService
+ 
+
+server:
+  port: 8081
+  
+management:
+  tracing:
+    sampling:
+      probability: 1.0
+
