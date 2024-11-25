@@ -99,7 +99,6 @@ INDEX VERSION 1.134+F:\programs\Spring\Microservices\medical-app\.metadata\.plug
 240348156.index
 604781512.index
 2512553544.index
-2202219253.index
 2505909175.index
 561127902.index
 633900838.index

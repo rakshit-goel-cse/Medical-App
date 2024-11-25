@@ -33,12 +33,12 @@ public class PrescriberController {
 	PrescriberSetService setService;
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<Object> getPresById(@PathVariable int id){
+	public ResponseEntity<Object> getPresById(@PathVariable(name="id") int id){
 		return new ResponseEntity<Object>(getService.getPrescriber(id),HttpStatus.FOUND);
 	}
 	
 	@GetMapping("withAddress/{id}")
-	public ResponseEntity<Object> getPresWithAddById(@PathVariable int id,
+	public ResponseEntity<Object> getPresWithAddById(@PathVariable(name="id") int id,
 			@RequestParam(name = "allActive", defaultValue = "true") Boolean allActive) {
 		PrescriberRespDto presDto = getService.getPrescriber(id);
 
