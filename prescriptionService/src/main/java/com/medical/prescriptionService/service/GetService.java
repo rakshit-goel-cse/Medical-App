@@ -1,6 +1,7 @@
 package com.medical.prescriptionService.service;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +10,7 @@ import org.springframework.web.client.RestTemplate;
 
 import com.medical.prescriptionService.dto.DrugDTO;
 import com.medical.prescriptionService.dto.PrescriberDto;
-import com.medical.prescriptionService.dto.PrescriptionDto;
+import com.medical.prescriptionService.dto.PrescriptionResponseDto;
 import com.medical.prescriptionService.entity.PrescriptionEntity;
 import com.medical.prescriptionService.repo.PrescriptionRepo;
 
@@ -22,30 +23,42 @@ public class GetService {
 	@Autowired
 	RestTemplate restTemp;
 	
-	public PrescriptionDto getPrescByPatId(int patId) {
-		PrescriptionEntity ent= repo.findByPatId(patId).get();
-		
+	private DrugDTO getdrugDto(int id) {
+		DrugDTO drug=null;
+		if(id>0) {
+		drug = restTemp.getForObject("http://localhost:8084/drug/getDrugById/"+id, DrugDTO.class);
+		}
+		return drug;
+	}
+	
+	private PrescriberDto getPrescriberDto(int id) {
 		Map<String, Integer> uriVariables = new HashMap();
 		
 		PrescriberDto prescriber=null;
-		if(null!=ent && ent.getPrescriberId()>0) {
-			uriVariables.put("id", ent.getPrescriberId());
+		if(id>0) {
+			uriVariables.put("id", id);
 			prescriber= restTemp.getForObject("http://localhost:8082/prescriber/{id}", PrescriberDto.class,uriVariables);
 		}
+		return prescriber;
+	}
+	
+	public List<PrescriptionResponseDto> getPrescByPatId(int patId) {
+		List<PrescriptionEntity> entList= repo.findByPatId(patId).get();
 		
-		DrugDTO drug=null;
-		if(null!=ent && ent.getPrescriberId()>0) {
-		drug = restTemp.getForObject("http://localhost:8084/drug/getDrugById/"+ent.getDrugId(), DrugDTO.class);
-		}
-		PrescriptionDto dto = PrescriptionDto.builder()
+		List<PrescriptionResponseDto> dto = 
+				entList.stream()
+					.map(ent->
+							PrescriptionResponseDto.builder()
 									.id(ent.getId())
 									.patId(ent.getPatId())
 									.pickupDate(ent.getPickupDate())
 									.creationDate(ent.getCreationDate())
 									.storeNum(ent.getStoreNumber())
-									.prescriber(prescriber)
-									.drug(drug)
-									.build();
+									.prescriber(getPrescriberDto(ent.getPrescriberId()))
+									.drug(getdrugDto(ent.getDrugId()))
+									.build()
+					)
+				.toList();
 		
 		return dto;
 	}

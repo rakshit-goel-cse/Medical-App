@@ -9,7 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.medical.prescriptionService.dto.PrescriptionDto;
+import com.medical.prescriptionService.dto.PrescriptionRequestDto;
+import com.medical.prescriptionService.dto.PrescriptionResponseDto;
 import com.medical.prescriptionService.service.GetService;
 import com.medical.prescriptionService.service.SetService;
 
@@ -23,13 +24,13 @@ public class PrescriptionController {
 	@Autowired
 	SetService setService;
 	
-	@GetMapping("")
-	public ResponseEntity<Object> getPrescription(@RequestParam(name="patId") int id){
+	@GetMapping("/getAllByPatId")
+	public ResponseEntity<Object> getAllPrescByPatId(@RequestParam(name="patId") int id){
 		return ResponseEntity.ok(getService.getPrescByPatId(id));
 	}
 	
 	@PostMapping("/createNew")
-	public ResponseEntity<Object> createNewPresc(@RequestBody PrescriptionDto dto){
+	public ResponseEntity<Object> createNewPresc(@RequestBody PrescriptionRequestDto dto){
 		setService.newPrescription(dto);
 		return ResponseEntity.ok("Prescription created");
 	}
