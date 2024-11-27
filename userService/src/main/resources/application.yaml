@@ -1,0 +1,23 @@
+spring:
+  application:
+    name: Service
+  datasource:
+    url: jdbc:mysql://127.0.10.11:3306/user
+    username: root
+    password: 123456
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    show-sql: true
+
+server:
+  port: 8081
+  
+management:
+  tracing:
+    sampling:
+      probability: 0.0
+      
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka

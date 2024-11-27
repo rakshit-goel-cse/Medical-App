@@ -23,21 +23,23 @@ public class GetService {
 	@Autowired
 	RestTemplate restTemp;
 	
+	//Get drug data
 	private DrugDTO getdrugDto(int id) {
 		DrugDTO drug=null;
 		if(id>0) {
-		drug = restTemp.getForObject("http://localhost:8084/drug/getDrugById/"+id, DrugDTO.class);
+		drug = restTemp.getForObject("http://drugService/drug/getDrugById/"+id, DrugDTO.class);
 		}
 		return drug;
 	}
 	
+	//get prescriber info
 	private PrescriberDto getPrescriberDto(int id) {
 		Map<String, Integer> uriVariables = new HashMap();
 		
 		PrescriberDto prescriber=null;
 		if(id>0) {
 			uriVariables.put("id", id);
-			prescriber= restTemp.getForObject("http://localhost:8082/prescriber/{id}", PrescriberDto.class,uriVariables);
+			prescriber= restTemp.getForObject("http://prescriberService/prescriber/{id}", PrescriberDto.class,uriVariables);
 		}
 		return prescriber;
 	}
