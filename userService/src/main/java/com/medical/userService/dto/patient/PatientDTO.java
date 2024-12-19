@@ -1,8 +1,10 @@
 package com.medical.userService.dto.patient;
 
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.medical.userService.entity.patient.PatientEntity;
 
 import lombok.Data;
@@ -12,7 +14,7 @@ public class PatientDTO {
 	
 		public PatientDTO getPatientDTOWithoutAddress(PatientEntity patEnt) {
 			this.name=patEnt.getName();
-			this.dob=patEnt.getDob();
+			this.dob=LocalDate.parse(patEnt.getDob().toString());
 			this.gender=patEnt.getGender();
 			this.height=patEnt.getHeight();
 			this.weight=patEnt.getWeight();
@@ -47,7 +49,10 @@ public class PatientDTO {
 		}
 	
 	private String name;
-	private Date dob;
+	
+	//@JsonFormat(pattern = "EEE MMM dd yyyy HH:mm:ss 'GMT'Z (z)") //change the date format
+	private LocalDate dob;
+	
 	private int height;
 	private int weight;
 	private char gender;

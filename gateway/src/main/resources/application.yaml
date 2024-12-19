@@ -1,0 +1,19 @@
+spring:
+  application:
+    name: gateway
+  cloud:
+    gateway:
+      mvc:
+        routes:
+        - id: prescriptionService
+          uri: lb://prescriptionService
+          predicates:
+          - Path=/prescription/**
+          
+        - id: userService
+          uri: lb://userService
+          predicates:
+          - Path=/user/**, /employee/**, /patient/** 
+          
+server:
+  port: 8088

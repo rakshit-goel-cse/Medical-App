@@ -2,6 +2,7 @@ package com.medical.userService.advice;
 
 import java.util.NoSuchElementException;
 
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
@@ -33,6 +34,14 @@ public class ExceptionHandler extends ResponseEntityExceptionHandler{
 		// TODO Auto-generated method stub
 		return new ResponseEntity<Object>("Media type wrong Kindly check the request",HttpStatus.BAD_REQUEST);
 	}
+	
+	@org.springframework.web.bind.annotation.ExceptionHandler(DataIntegrityViolationException.class)
+	public ResponseEntity<String> handleSqlDataException(DataIntegrityViolationException exc){
+		return new ResponseEntity<String>("Issue in SQL Query - "+exc.getMessage(),HttpStatus.CONFLICT);
+	}
+	
+	
+	
 	
 	
 }

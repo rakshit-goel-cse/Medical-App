@@ -34,7 +34,7 @@ public class GetService {
 	
 	//get prescriber info
 	private PrescriberDto getPrescriberDto(int id) {
-		Map<String, Integer> uriVariables = new HashMap();
+		Map<String, Integer> uriVariables = new HashMap<String, Integer>();
 		
 		PrescriberDto prescriber=null;
 		if(id>0) {

@@ -1,5 +1,0 @@
-package com.medical.patientService.dto;
-
-public class PatientDTO {
-
-}

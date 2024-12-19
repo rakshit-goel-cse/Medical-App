@@ -1,7 +1,5 @@
 package com.medical.prescriberService.controller;
 
-import org.apache.logging.log4j.LogBuilder;
-import org.apache.logging.slf4j.SLF4JLogBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

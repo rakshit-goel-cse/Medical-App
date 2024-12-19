@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.medical.prescriptionService.dto.PrescriptionRequestDto;
-import com.medical.prescriptionService.dto.PrescriptionResponseDto;
 import com.medical.prescriptionService.service.GetService;
 import com.medical.prescriptionService.service.SetService;
 

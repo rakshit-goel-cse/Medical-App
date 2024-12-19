@@ -1,5 +1,0 @@
-package com.medical.patientService.exception;
-
-public class ExceptionHandler {
-
-}

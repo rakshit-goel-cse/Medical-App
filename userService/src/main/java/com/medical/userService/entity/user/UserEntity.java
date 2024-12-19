@@ -32,15 +32,17 @@ public class UserEntity {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
+	@Column(name="pat_id")
 	private Integer patId;
 	
+	@Column(name="emp_id")
 	private Integer empId;
 	
 	 @Enumerated(EnumType.STRING) // Use STRING to store enum name in the database
 	 @Column(nullable = false)
 	 private UserType type;
 	 
-	 @Column(nullable = false)
+	 @Column(nullable = false,unique = true)
 	 private String userName;
 	 
 	 @Column(nullable = false)
