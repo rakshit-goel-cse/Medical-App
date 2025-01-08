@@ -8,6 +8,12 @@ const FrontPage = () => {
     password: "",
   });
 
+  const [userData, setUserData] = useState({
+    userName: '',
+    userId: '',
+    password: ''
+  });
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
@@ -21,16 +27,75 @@ const FrontPage = () => {
     );
   };
 
+  const handleChangeUser = (e) => {
+    const { name, value } = e.target;
+    setUserData({
+      ...userData,
+      [name]: value
+    });
+  };
+
+  const handleSubmitUser = (e) => {
+    e.preventDefault();
+    console.log('Form data submitted:', userData);
+  };
+
+  const getMoreDetails = () => {
+    return (
+      <>
+        <form onSubmit={handleSubmitUser}>
+          <div className="mb-4">
+            <label htmlFor="userName" className="block text-gray-700">User Name:</label>
+            <input
+              type="text"
+              id="userName"
+              name="userName"
+              value={userData.userName}
+              onChange={handleChangeUser}
+              className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:ring-blue-400"
+              required
+            />
+          </div>
+          <div className="mb-4">
+            <label htmlFor="userId" className="block text-gray-700">User ID:</label>
+            <input
+              type="text"
+              id="userId"
+              name="userId"
+              value={userData.userId}
+              onChange={handleChangeUser}
+              className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:ring-blue-400"
+              required
+            />
+          </div>
+          <div className="mb-4">
+            <label htmlFor="password" className="block text-gray-700">Password:</label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              value={userData.password}
+              onChange={handleChangeUser}
+              className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:ring-blue-400"
+              required
+            />
+          </div>
+        </form>
+      </>
+    );
+  }
+
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100">
+    <div className="flex items-center justify-center min-h-screen bg-gray-100 flex-col">
       <div className="w-full max-w-md p-6 bg-white rounded-lg shadow-lg">
         <h1 className="text-2xl font-semibold text-center mb-4">
           {isLogin ? "Login" : "Register"}
         </h1>
 
-        {/* Username */}
+        {!isLogin ? getMoreDetails() : null}
+
         <div className="mb-4">
-          <label className="block text-gray-700">Username</label>
+          <label className="block text-gray-700">{isLogin?"Username":"Registerer UserName"}</label>
           <input
             type="text"
             name="username"
@@ -41,9 +106,8 @@ const FrontPage = () => {
           />
         </div>
 
-        {/* Password */}
         <div className="mb-6">
-          <label className="block text-gray-700">Password</label>
+          <label className="block text-gray-700">{isLogin?"Password":"Registerer Password"}</label>
           <input
             type="password"
             name="password"
@@ -54,12 +118,9 @@ const FrontPage = () => {
           />
         </div>
 
-        {/* Patient/Client Slider */}
         <div className="relative flex items-center justify-center mb-4">
           <span
-            className={`font-medium mr-3 cursor-pointer ${
-              isPatient ? "text-blue-500" : "text-gray-500"
-            }`}
+            className={`font-medium mr-3 cursor-pointer ${isPatient ? "text-blue-500" : "text-gray-500"}`}
             onClick={() => setIsPatient(true)}
           >
             Patient
@@ -69,27 +130,20 @@ const FrontPage = () => {
             onClick={() => setIsPatient(!isPatient)}
           >
             <div
-              className={`w-6 h-6 bg-blue-500 rounded-full shadow-md transform transition-transform duration-300 ${
-                isPatient ? "translate-x-0" : "translate-x-6"
-              }`}
+              className={`w-6 h-6 bg-blue-500 rounded-full shadow-md transform transition-transform duration-300 ${isPatient ? "translate-x-0" : "translate-x-6"}`}
             ></div>
           </div>
           <span
-            className={`font-medium ml-3 cursor-pointer ${
-              !isPatient ? "text-blue-500" : "text-gray-500"
-            }`}
+            className={`font-medium ml-3 cursor-pointer ${!isPatient ? "text-blue-500" : "text-gray-500"}`}
             onClick={() => setIsPatient(false)}
           >
             Client
           </span>
         </div>
 
-        {/* Login/Register Slider */}
         <div className="relative flex items-center justify-center mb-6">
           <span
-            className={`font-medium mr-3 cursor-pointer ${
-              isLogin ? "text-blue-500" : "text-gray-500"
-            }`}
+            className={`font-medium mr-3 cursor-pointer ${isLogin ? "text-blue-500" : "text-gray-500"}`}
             onClick={() => setIsLogin(true)}
           >
             Login
@@ -99,22 +153,17 @@ const FrontPage = () => {
             onClick={() => setIsLogin(!isLogin)}
           >
             <div
-              className={`w-6 h-6 bg-blue-500 rounded-full shadow-md transform transition-transform duration-300 ${
-                isLogin ? "translate-x-0" : "translate-x-6"
-              }`}
+              className={`w-6 h-6 bg-blue-500 rounded-full shadow-md transform transition-transform duration-300 ${isLogin ? "translate-x-0" : "translate-x-6"}`}
             ></div>
           </div>
           <span
-            className={`font-medium ml-3 cursor-pointer ${
-              !isLogin ? "text-blue-500" : "text-gray-500"
-            }`}
+            className={`font-medium ml-3 cursor-pointer ${!isLogin ? "text-blue-500" : "text-gray-500"}`}
             onClick={() => setIsLogin(false)}
           >
             Register
           </span>
         </div>
 
-        {/* Submit Button */}
         <button
           onClick={handleSubmit}
           className="w-full px-3 py-2 text-white bg-blue-500 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-400"
@@ -122,6 +171,8 @@ const FrontPage = () => {
           {isLogin ? "Login" : "Register"}
         </button>
       </div>
+
+      
     </div>
   );
 };
