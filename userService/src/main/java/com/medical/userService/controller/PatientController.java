@@ -25,24 +25,24 @@ public class PatientController {
 	PatientRepository patRepo;
 	
 	@GetMapping("/getPatientWithoutAddress")
-	public ResponseEntity<Object> getPatientWithoutAdd(@RequestParam(name="id") int id){
+	public ResponseEntity<PatientDTO> getPatientWithoutAdd(@RequestParam(name="id") int id){
 		if(id<1) {
 			throw new InvalidIdException("Patient Id is Invalid Kindly recheck");
 		}
 		
 		return patRepo.findById(id)
 				.map(data->{
-					return new ResponseEntity<Object>(
+					return new ResponseEntity<PatientDTO>(
 							new PatientDTO()
 								.getPatientDTOWithoutAddress(data)
 								,HttpStatus.OK);
 				})
-				.orElse(new ResponseEntity<>("No data found",HttpStatus.NOT_FOUND));
+				.orElse(new ResponseEntity<>(new PatientDTO(),HttpStatus.NOT_FOUND));
 	}
 	
 
 	@GetMapping("/getPatientWithAddress")
-	public ResponseEntity<Object> getPatientWithAdd(@RequestParam(name="id") int id,
+	public ResponseEntity<PatientDTO> getPatientWithAdd(@RequestParam(name="id") int id,
 													@RequestParam(name="isActive",required = false,defaultValue = "true") Boolean isActive
 													){
 		if(id<1) {
@@ -52,8 +52,8 @@ public class PatientController {
 		return patRepo.findById(id)
 				.map(data->{
 					return (isActive
-					? new ResponseEntity<Object>(new PatientDTO().getPatientDTOWithActiveAddress(data),HttpStatus.OK)
-					: new ResponseEntity<Object>(new PatientDTO().getPatientDTOWithAddress(data),HttpStatus.OK));
+					? new ResponseEntity<PatientDTO>(new PatientDTO().getPatientDTOWithActiveAddress(data),HttpStatus.OK)
+					: new ResponseEntity<PatientDTO>(new PatientDTO().getPatientDTOWithAddress(data),HttpStatus.OK));
 				})
 				.orElseThrow();
 	}

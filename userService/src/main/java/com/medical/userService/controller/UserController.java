@@ -1,5 +1,9 @@
 package com.medical.userService.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import org.codehaus.jettison.json.JSONArray;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.google.common.base.Optional;
+import com.medical.userService.dto.employee.EmployeeDTO;
+import com.medical.userService.dto.patient.PatientDTO;
 import com.medical.userService.dto.user.UserDto;
 import com.medical.userService.dto.user.UserLoginDto;
 import com.medical.userService.entity.user.UserEntity;
@@ -96,15 +102,33 @@ public class UserController {
 	}
 	
 	@GetMapping("/login")
-	public String login(@RequestParam(name="user-name",required=true) String userName,
+	public ResponseEntity<Object> login(@RequestParam(name="user-name",required=true) String userName,
 				@RequestParam(name="password",required=true) String pass) {
+		Map<String, Object> response = new HashMap<>();
 		if(StringUtil.notNullNorEmpty(userName) && StringUtil.notNullNorEmpty(pass)) {
 			UserLoginDto userDto=getPassword(userName);
 			if(null!=userDto && StringUtil.notNullNorEmpty(userDto.getPassword()) && pass.equals(userDto.getPassword())) {
-				return jwtUtil.generateJWTTocken(userDto.getUserName());
+				response.put("token", jwtUtil.generateJWTTocken(userDto.getUserName()));
+				
+				//creating new user
+				UserDto newUser=new UserDto();
+				newUser.setType(userDto.getType());
+				if(null!=userDto.getType() && UserDto.UserType.PAT.toString().equalsIgnoreCase(userDto.getType())) {
+					PatientDTO dto= patC.getPatientWithAdd(userDto.getPatientId(),true).getBody();
+					newUser.setPatient(dto);
+				}
+//				else if(null!=userDto.getType() && UserDto.UserType.EMP.toString().equalsIgnoreCase(userDto.getType())) {
+//					EmployeeDTO dto= empC.getPatientWithAdd(userDto.getPatientId(),true).getBody();
+//					newUser.setPatient(dto);
+//				}
+				
+				
+				response.put("user", newUser);
+				return new ResponseEntity<>(response,HttpStatus.OK);
 			}
 		}
-		return "false";
+		//response.put("token", false);
+		return new ResponseEntity<>("false",HttpStatus.BAD_REQUEST);
 	}
 	
 	

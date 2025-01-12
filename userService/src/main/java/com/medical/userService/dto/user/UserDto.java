@@ -16,6 +16,12 @@ import lombok.NoArgsConstructor;
 
 public class UserDto {
 	
+	public enum UserType{
+		ADMIN,
+		EMP,
+		PAT
+	}
+	
 	private int id;
 	private PatientDTO patient;
 	private EmployeeDTO employee;

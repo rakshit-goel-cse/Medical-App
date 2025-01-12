@@ -1,6 +1,8 @@
 import React, { useState } from "react";
+import { handleLogin } from "./handleLogin";
+import Cookies from 'js-cookie';
 
-const FrontPage = () => {
+const FrontPage = ({setLogedIn}) => {
   const [isPatient, setIsPatient] = useState(true);
   const [isLogin, setIsLogin] = useState(true);
   const [formData, setFormData] = useState({
@@ -8,26 +10,31 @@ const FrontPage = () => {
     password: "",
   });
 
-  const [userData, setUserData] = useState({
+  /*const [userData, setUserData] = useState({
     userName: '',
     userId: '',
     password: ''
-  });
+  });*/
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = () => {
-    alert(
-      `${isLogin ? "Logging in" : "Registering"} as ${
-        isPatient ? "Patient" : "Client"
-      } with Username: ${formData.username} and Password: ${formData.password}`
-    );
-  };
+  const handleSubmit = async () => {
+    if(null==formData || null==formData.username || !formData.username || null==formData.password || !formData.password){
+      alert("Login Details not valid");
+    }
+    else{
+      const loginSuccess=await handleLogin(formData.username,formData.password);
+   if(loginSuccess){
+      //alert("Logged In");
+      setLogedIn(true);
+    }
+  }
+};
 
-  const handleChangeUser = (e) => {
+  /*const handleChangeUser = (e) => {
     const { name, value } = e.target;
     setUserData({
       ...userData,
@@ -38,11 +45,11 @@ const FrontPage = () => {
   const handleSubmitUser = (e) => {
     e.preventDefault();
     console.log('Form data submitted:', userData);
-  };
+  };*/
 
   const getMoreDetails = () => {
     return (
-      <>
+      <>{/*}
         <form onSubmit={handleSubmitUser}>
           <div className="mb-4">
             <label htmlFor="userName" className="block text-gray-700">User Name:</label>
@@ -80,7 +87,7 @@ const FrontPage = () => {
               required
             />
           </div>
-        </form>
+        </form>{*/}
       </>
     );
   }
@@ -118,6 +125,7 @@ const FrontPage = () => {
           />
         </div>
 
+        {/*}
         <div className="relative flex items-center justify-center mb-4">
           <span
             className={`font-medium mr-3 cursor-pointer ${isPatient ? "text-blue-500" : "text-gray-500"}`}
@@ -140,7 +148,7 @@ const FrontPage = () => {
             Client
           </span>
         </div>
-
+        
         <div className="relative flex items-center justify-center mb-6">
           <span
             className={`font-medium mr-3 cursor-pointer ${isLogin ? "text-blue-500" : "text-gray-500"}`}
@@ -163,6 +171,7 @@ const FrontPage = () => {
             Register
           </span>
         </div>
+        {*/}
 
         <button
           onClick={handleSubmit}
