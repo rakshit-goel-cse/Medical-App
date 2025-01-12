@@ -109,7 +109,7 @@ public class UserController {
 	
 	
 	@GetMapping("/validateJWT")
-	public String validateJWTTocken(@RequestParam(name = "jwt-tocken", required = true) String jwt) {
+	public String validateJWTToken(@RequestParam(name = "jwt-token", required = true) String jwt) {
 		log.info("JWT tocken- "+jwt);
 		if (null == jwt || jwt.isEmpty())
 			throw new InvalidIdException("User data invalid");
@@ -117,7 +117,7 @@ public class UserController {
 		return (
 				jwtUtil.validateJwtToken(jwt)
 					? jwtUtil.getUserNameFromJwtToken(jwt)
-						: "false"
+						: ""
 		);
 	}
 }

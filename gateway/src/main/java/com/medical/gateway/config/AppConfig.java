@@ -6,16 +6,17 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
 @org.springframework.context.annotation.Configuration
-public class Configuration {
+public class AppConfig {
 
-	@Bean
-	@LoadBalanced
-	public RestTemplate restTemplate() {
+    @Bean
+    @LoadBalanced
+    RestTemplate restTemplate() {
+		System.out.println("RestTemplate Beancreation --------------- ");
 		return new RestTemplate();
 	}
-	
-	@Bean
-	public UriComponentsBuilder uriComponentsBuilder() {
+
+    @Bean
+    UriComponentsBuilder uriComponentsBuilder() {
 		return UriComponentsBuilder.newInstance();
 	}
 }

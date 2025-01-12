@@ -30,20 +30,21 @@ public class SecurityConfig {
 //	@Autowired
 //	userService userSer;
 	
-	
+	@Autowired
+	private JWTRequestFilter requestFilter;
 	
 	@Bean
 	SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
 		http.csrf(csrf->csrf.disable())
         .authorizeHttpRequests((req) -> req
-        		.requestMatchers("/user/login","/user/validateJWT").permitAll()
+        		.requestMatchers("/user/login").permitAll()
         		.requestMatchers("/user/getPassword").denyAll()
         		.anyRequest().authenticated()
         	);
 		http.formLogin(withDefaults());
         http.httpBasic(withDefaults());
         http.sessionManagement(t->t.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
-        http.addFilterBefore(new JWTRequestFilter(),UsernamePasswordAuthenticationFilter.class);
+        http.addFilterBefore(requestFilter,UsernamePasswordAuthenticationFilter.class);
     return http.build();
 	}
 	

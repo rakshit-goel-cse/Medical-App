@@ -39,7 +39,7 @@ public class userService implements UserDetailsService{
 		if (null != dto && dto.getId() > 0 && !StringUtil.isNullOrEmpty(dto.getUserName())
 				&& StringUtil.notNullNorEmpty(dto.getPassword())) {
 			String password = passEnc.encode(dto.getPassword());
-			logger.info("**********************/n" + password + "/n***********************************");
+			//logger.info("**********************/n" + password + "/n***********************************");
 			return new User(username, password, new ArrayList<>());
 		}
 		return new User(username, "noop", new ArrayList<>());

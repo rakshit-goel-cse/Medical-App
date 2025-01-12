@@ -27,8 +27,8 @@ import jakarta.servlet.http.HttpServletResponse;
 @Component
 public class JWTRequestFilter extends OncePerRequestFilter{
 	
-	
-	private JWTService jwtService=new JWTService();
+	@Autowired
+	private JWTService jwtService;
 	
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
@@ -44,6 +44,9 @@ public class JWTRequestFilter extends OncePerRequestFilter{
 			try {
 				user = jwtService.validateJWTTocken(jwt);
 			} catch (URISyntaxException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
