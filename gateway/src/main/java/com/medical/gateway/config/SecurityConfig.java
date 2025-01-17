@@ -33,7 +33,7 @@ public class SecurityConfig {
 		corConfig.setAllowCredentials(true);
 		corConfig.setAllowedOrigins(Arrays.asList("http://localhost:3000"));
 		corConfig.setAllowedMethods(Arrays.asList("GET","POST"));
-		corConfig.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type", "Accept","user-name","password"));
+		corConfig.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type", "Accept"));
 		
 		UrlBasedCorsConfigurationSource source=new UrlBasedCorsConfigurationSource();
 		source.registerCorsConfiguration("/**", corConfig);

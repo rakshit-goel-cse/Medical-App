@@ -113,6 +113,7 @@ public class UserController {
 				//creating new user
 				UserDto newUser=new UserDto();
 				newUser.setType(userDto.getType());
+				newUser.setUserName(userDto.getUserName());
 				if(null!=userDto.getType() && UserDto.UserType.PAT.toString().equalsIgnoreCase(userDto.getType())) {
 					PatientDTO dto= patC.getPatientWithAdd(userDto.getPatientId(),true).getBody();
 					newUser.setPatient(dto);
@@ -134,7 +135,7 @@ public class UserController {
 	
 	@GetMapping("/validateJWT")
 	public String validateJWTToken(@RequestParam(name = "jwt-token", required = true) String jwt) {
-		log.info("JWT tocken- "+jwt);
+		System.out.println("JWT tocken- "+jwt);
 		if (null == jwt || jwt.isEmpty())
 			throw new InvalidIdException("User data invalid");
 		//use util to validate and create user
