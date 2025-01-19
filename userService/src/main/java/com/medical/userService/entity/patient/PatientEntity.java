@@ -38,7 +38,7 @@ public class PatientEntity {
 
 	@OneToMany(mappedBy = "patient", cascade = CascadeType.ALL, orphanRemoval = false,fetch = FetchType.LAZY)
 //	@JsonManagedReference // This indicates that this is the "managed" side of the relationship
-	private List<PatientAddressEntity> patientAdd;
+	private List<PatientAddressEntity> patAdd;
 
 //	@OneToMany(mappedBy = "patient"): Defines a one-to-many relationship where mappedBy refers to the field in the PatientAddressEntity class that holds the reference to PatientEntity.
 //	cascade = CascadeType.ALL: Ensures that all operations (persist, merge, remove, etc.) are cascaded to PatientAddressEntity objects.

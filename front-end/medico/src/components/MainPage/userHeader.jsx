@@ -1,5 +1,7 @@
 const UserHeader=({patient,type})=>{
 
+    console.log("patient header- ",patient);
+
     return (
     <div className="user-info bg-blue-200 p-6 rounded shadow-md mb-4 flex items-center justify-between border-4 border-blue-500" style={{ height: '20%' }}>
     <div className="flex space-x-4">

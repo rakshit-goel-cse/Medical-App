@@ -26,7 +26,7 @@ public class PatientDTO {
 		public PatientDTO getPatientDTOWithAddress(PatientEntity patEnt) {
 			PatientDTO patDto=this.getPatientDTOWithoutAddress(patEnt);
 			patDto.setPatAdd(
-					patEnt.getPatientAdd().stream()
+					patEnt.getPatAdd().stream()
 						.map(addEnt->
 								new PatientAddressDTO(addEnt)
 								)
@@ -38,7 +38,7 @@ public class PatientDTO {
 		public PatientDTO getPatientDTOWithActiveAddress(PatientEntity patEnt) {
 			PatientDTO patDto=this.getPatientDTOWithoutAddress(patEnt);
 			patDto.setPatAdd(
-					patEnt.getPatientAdd().stream()
+					patEnt.getPatAdd().stream()
 						.filter(addEnt->addEnt.getIsActive()=='Y')
 						.map(addEnt->
 								new PatientAddressDTO(addEnt)

@@ -22,7 +22,7 @@ function App() {
 
   return (
     isLogedIn
-    ?<MainPage/>
+    ?<MainPage setLogedIn={setLogedIn}/>
     :<FrontPage setLogedIn={setLogedIn}/>
   );
 }

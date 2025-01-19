@@ -3,6 +3,7 @@ package com.medical.prescriptionService.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,4 +34,18 @@ public class PrescriptionController {
 		setService.newPrescription(dto);
 		return ResponseEntity.ok("Prescription created");
 	}
+	
+	@GetMapping("/getActiveByPatId")
+	public ResponseEntity<Object> getActivePrescByPatId(@RequestParam(name = "patId") int id,
+			@RequestParam(name = "offSet", defaultValue = "0") int offSet,
+			@RequestParam(name = "pagesize", defaultValue = "10") int pageSize) {
+		return ResponseEntity.ok(getService.getPrescPagerByPatId(id, offSet, pageSize));
+	}
+	
+	@PostMapping("/addRandom/{entries}")
+	public void addRandom(@PathVariable(name="entries") int entries) {
+		System.out.println("Random entries called for entries- "+entries);
+		setService.addRandom(entries);
+	}
+	
 }

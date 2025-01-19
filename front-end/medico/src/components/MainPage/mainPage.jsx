@@ -2,33 +2,55 @@ import React, { useEffect, useState } from 'react';
 import 'tailwindcss/tailwind.css';
 import Cookies from 'js-cookie';
 import UserHeader from './userHeader';
+import PrescriptionList from './prescriptionList';
+import PatientList from './patientList';
 
-const MainPage = () => {
-    const [patient, setPatient] = useState(null);
-    const [type,setType] = useState(null);
+const MainPage = ({setLogedIn}) => {
+    const [user, setUser] = useState(null);
+    const [type,setType] = useState("EMP");
+    const [backActive,setBackActive] = useState(true);
+
     useEffect(() => {
         const userCookie = Cookies.get('user');
         if (userCookie) {
-            const user = JSON.parse(userCookie);
-            console.log(user);
-            if (user) {
-                setType(user.type);
-                setPatient(user.patient);
-                console.log(user.patient); // This will log the patient object
+            const userRes = JSON.parse(userCookie);
+            console.log("Logged in user- ",user);
+            if (userRes) {
+                setType(userRes.type);
+                if(userRes.type=="PAT") {
+                    setBackActive(false);
+                    setUser(userRes.patient);    
+                } 
+                else{
+                    setBackActive(true);
+                    setUser(userRes.employee);
+                } 
+                
+                console.log(userRes); // This will log the patient object
             }
         }
-    }, []); // Empty dependency array means this effect runs once after the initial render
+    }, [backActive]); // Empty dependency array means this effect runs once after the initial render
 
     
-
+    const doLogOut = () => {
+        Cookies.remove('user');
+        Cookies.remove('token');
+        setLogedIn(false);
+    }
 
     return (
         <div className="main-page bg-gray-100 min-h-screen p-4">
             
-            <UserHeader patient={patient} type={type}/>
+            <UserHeader patient={user} type={type}/>
+
+            {backActive && type=="PAT" && <button className="bg-blue-500 text-white px-4 py-2 rounded mr-2" onClick={() => setType("EMP")}>Back</button>}
+
+            <button className="bg-blue-500 text-white px-4 py-2 rounded" onClick={doLogOut}>Log Out</button>
 
             <div className="future-data bg-gray-200 p-6 rounded shadow-md">
-                <p>Future data will be displayed here.</p>
+            {type=="PAT" ?
+                <PrescriptionList id={user.id}/>
+                :<PatientList setPatient={setUser} setType={setType}/>}
             </div>
         </div>
     );

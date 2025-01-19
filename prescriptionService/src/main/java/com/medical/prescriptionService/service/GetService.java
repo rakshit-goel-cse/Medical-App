@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -50,7 +52,29 @@ public class GetService {
 		List<PrescriptionResponseDto> dto = 
 				entList.stream()
 					.map(ent->
-							PrescriptionResponseDto.builder()
+					PrescriptionResponseDto.builder()
+					.id(ent.getId())
+					.patId(ent.getPatId())
+					.pickupDate(ent.getPickupDate())
+					.creationDate(ent.getCreationDate())
+					.storeNum(ent.getStoreNumber())
+					.prescriber(getPrescriberDto(ent.getPrescriberId()))
+					.drug(getdrugDto(ent.getDrugId()))
+					.build()
+					)
+				.toList();
+		
+		return dto;
+	}
+	
+	public Page<PrescriptionResponseDto> getPrescPagerByPatId(int patId,int offset, int pageSize) {
+		Page<PrescriptionEntity> entList= repo.findByPatId(PageRequest.of(offset, pageSize),patId);
+		System.out.println("/n----------------------/n\n data fetched-"+entList.getSize());
+		Page<PrescriptionResponseDto> dto = 
+				entList
+					.map(ent->
+							
+									PrescriptionResponseDto.builder()
 									.id(ent.getId())
 									.patId(ent.getPatId())
 									.pickupDate(ent.getPickupDate())
@@ -59,9 +83,9 @@ public class GetService {
 									.prescriber(getPrescriberDto(ent.getPrescriberId()))
 									.drug(getdrugDto(ent.getDrugId()))
 									.build()
-					)
-				.toList();
+					);
 		
 		return dto;
 	}
+	
 }
