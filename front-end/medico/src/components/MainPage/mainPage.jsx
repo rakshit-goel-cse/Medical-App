@@ -26,7 +26,7 @@ const MainPage = ({setLogedIn}) => {
                     setUser(userRes.employee);
                 } 
                 
-                console.log(userRes); // This will log the patient object
+                console.log("Set user- ",user); // This will log the patient object
             }
         }
     }, [backActive]); // Empty dependency array means this effect runs once after the initial render
@@ -43,14 +43,15 @@ const MainPage = ({setLogedIn}) => {
             
             <UserHeader patient={user} type={type}/>
 
-            {backActive && type=="PAT" && <button className="bg-blue-500 text-white px-4 py-2 rounded mr-2" onClick={() => setType("EMP")}>Back</button>}
+            {backActive && type=="PAT" && <button className="bg-blue-500 text-white px-4 py-2 rounded mr-2" onClick={() => setBackActive(null)}>Back</button>}
 
             <button className="bg-blue-500 text-white px-4 py-2 rounded" onClick={doLogOut}>Log Out</button>
 
             <div className="future-data bg-gray-200 p-6 rounded shadow-md">
-            {type=="PAT" ?
+            { (type==="PAT" ?
                 <PrescriptionList id={user.id}/>
-                :<PatientList setPatient={setUser} setType={setType}/>}
+                :<PatientList setPatient={setUser} setType={setType}/>
+            )}
             </div>
         </div>
     );

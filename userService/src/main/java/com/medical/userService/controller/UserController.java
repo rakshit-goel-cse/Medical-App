@@ -25,6 +25,7 @@ import com.medical.userService.dto.user.UserLoginDto;
 import com.medical.userService.entity.user.UserEntity;
 import com.medical.userService.exception.InvalidIdException;
 import com.medical.userService.repository.UserRepo;
+import com.medical.userService.service.EmpService;
 import com.medical.userService.utils.JWTUtils;
 
 import ch.qos.logback.core.util.StringUtil;
@@ -40,6 +41,9 @@ public class UserController {
 	EmployeeController empC;
 	@Autowired
 	PatientController patC;
+	
+	@Autowired
+	EmpService empService;
 	
 	@Autowired
 	JWTUtils jwtUtil;
@@ -118,10 +122,10 @@ public class UserController {
 					PatientDTO dto= patC.getPatientWithAdd(userDto.getPatientId(),true).getBody();
 					newUser.setPatient(dto);
 				}
-//				else if(null!=userDto.getType() && UserDto.UserType.EMP.toString().equalsIgnoreCase(userDto.getType())) {
-//					EmployeeDTO dto= empC.getPatientWithAdd(userDto.getPatientId(),true).getBody();
-//					newUser.setPatient(dto);
-//				}
+				else if(null!=userDto.getType() && UserDto.UserType.EMP.toString().equalsIgnoreCase(userDto.getType())) {
+					EmployeeDTO dto= empService.getEmployeeById(userDto.getEmployeeId());
+					newUser.setEmployee(dto);
+				}
 				
 				
 				response.put("user", newUser);

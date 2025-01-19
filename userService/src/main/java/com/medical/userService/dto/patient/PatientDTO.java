@@ -19,6 +19,7 @@ public class PatientDTO {
 			this.height=patEnt.getHeight();
 			this.weight=patEnt.getWeight();
 			this.isActive=patEnt.getIs_active();
+			this.id=patEnt.getId();
 			
 			return this;
 		}
@@ -48,6 +49,7 @@ public class PatientDTO {
 			return patDto;
 		}
 	
+	private int id;
 	private String name;
 	
 	//@JsonFormat(pattern = "EEE MMM dd yyyy HH:mm:ss 'GMT'Z (z)") //change the date format

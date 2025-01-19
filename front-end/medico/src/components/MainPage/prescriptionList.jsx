@@ -2,11 +2,13 @@ import React, { useEffect, useState } from 'react';
 import Cookies from 'js-cookie';
 
 const PrescriptionList = ({id}) => {
+
     const [prescriptions, setPrescriptions] = useState([]);
     const [page,setPage]=useState(1);
     const [totalPages, setTotalPages] = useState(1);
 
     useEffect(() => {
+        console.log("PrescriptionList for pat id: ",id);
         fetch(`http://localhost:8088/prescription/getActiveByPatId?patId=${id}&offSet=`+(page-1),{
             method: 'GET',
             headers: {

@@ -48,20 +48,18 @@ public class PatientController {
 	
 
 	@GetMapping("/getPatientWithAddress")
-	public ResponseEntity<PatientDTO> getPatientWithAdd(@RequestParam(name="id") int id,
-													@RequestParam(name="isActive",required = false,defaultValue = "true") Boolean isActive
-													){
-		if(id<1) {
+	public ResponseEntity<PatientDTO> getPatientWithAdd(@RequestParam(name = "id") int id,
+			@RequestParam(name = "isActive", required = false, defaultValue = "true") Boolean isActive) {
+		if (id < 1) {
 			throw new InvalidIdException("Patient Id is Invalid Kindly recheck");
 		}
-		
-		return patRepo.findById(id)
-				.map(data->{
-					return (isActive
-					? new ResponseEntity<PatientDTO>(new PatientDTO().getPatientDTOWithActiveAddress(data),HttpStatus.OK)
-					: new ResponseEntity<PatientDTO>(new PatientDTO().getPatientDTOWithAddress(data),HttpStatus.OK));
-				})
-				.orElseThrow();
+
+		return patRepo.findById(id).map(data -> {
+			return (isActive
+					? new ResponseEntity<PatientDTO>(new PatientDTO().getPatientDTOWithActiveAddress(data),
+							HttpStatus.OK)
+					: new ResponseEntity<PatientDTO>(new PatientDTO().getPatientDTOWithAddress(data), HttpStatus.OK));
+		}).orElseThrow();
 	}
 	
 	public Integer savePatientWithoutAddress(PatientDTO patDto) {
