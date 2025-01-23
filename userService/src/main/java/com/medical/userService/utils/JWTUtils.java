@@ -24,7 +24,7 @@ public class JWTUtils {
 	private String jwtSecret;
 	
 	private Date getExpDate() {
-		long longDate=new Date().getTime()+10*60*1000;
+		long longDate=new Date().getTime()+1*60*60*1000; //hour*min*sec*millisec
 		return new Date(longDate);
 	}
 	

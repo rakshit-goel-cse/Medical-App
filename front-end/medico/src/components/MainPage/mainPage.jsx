@@ -6,9 +6,37 @@ import PrescriptionList from './prescriptionList';
 import PatientList from './patientList';
 
 const MainPage = ({setLogedIn}) => {
-    const [user, setUser] = useState(null);
-    const [type,setType] = useState("EMP");
+    const [user, setUser] = useState({
+        user:null,
+        type:"EMP"
+    });
+    const [data,setData] = useState(null);
     const [backActive,setBackActive] = useState(true);
+
+    useEffect(() => {
+        if(user.user && user.type==="PAT"){
+            const getPrescriptions = (id) => {
+    
+                console.log("PrescriptionList for pat id: ",id);
+                fetch(`http://localhost:8088/prescription/getActiveByPatId?patId=${id}&offSet=`+(0),{
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Bearer ${Cookies.get('token')}`,
+                        'Content-Type': 'application/json',
+                    },
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        setData(data);
+                    })
+                    .catch(error => console.error('Error fetching prescriptions:', error));
+        };
+        getPrescriptions(user.user.id);
+        }
+    }   , [user]);
+
+    
+
 
     useEffect(() => {
         const userCookie = Cookies.get('user');
@@ -16,14 +44,21 @@ const MainPage = ({setLogedIn}) => {
             const userRes = JSON.parse(userCookie);
             console.log("Logged in user- ",user);
             if (userRes) {
-                setType(userRes.type);
-                if(userRes.type=="PAT") {
+                //setType(userRes.type);
+                if(userRes.type==="PAT") {
                     setBackActive(false);
-                    setUser(userRes.patient);    
+                    setUser({
+                        user:userRes.patient,
+                        type:userRes.type
+                    });    
                 } 
                 else{
                     setBackActive(true);
-                    setUser(userRes.employee);
+                    //setUser(userRes.employee);
+                    setUser({
+                        user:userRes.patient,
+                        type:userRes.type
+                    });
                 } 
                 
                 console.log("Set user- ",user); // This will log the patient object
@@ -39,22 +74,27 @@ const MainPage = ({setLogedIn}) => {
     }
 
     return (
-        <div className="main-page bg-gray-100 min-h-screen p-4">
+        <div className="main-page bg-gray-100 h-screen p-4">
             
-            <UserHeader patient={user} type={type}/>
+            <UserHeader patient={user.user} type={user.type}/>
 
-            {backActive && type=="PAT" && <button className="bg-blue-500 text-white px-4 py-2 rounded mr-2" onClick={() => setBackActive(null)}>Back</button>}
+            <div className="flex justify-between items-center mb-4">
+                {backActive && user.type === "PAT" && (
+                    <button className="bg-blue-500 text-white px-4 py-2 rounded" onClick={() => setBackActive(null)}>Back</button>
+                )}
+                <button className="bg-blue-500 text-white px-4 py-2 rounded ml-auto" onClick={doLogOut}>Log Out</button>
+            </div>
 
-            <button className="bg-blue-500 text-white px-4 py-2 rounded" onClick={doLogOut}>Log Out</button>
 
-            <div className="future-data bg-gray-200 p-6 rounded shadow-md">
-            { (type==="PAT" ?
-                <PrescriptionList id={user.id}/>
-                :<PatientList setPatient={setUser} setType={setType}/>
-            )}
+            <div className="future-data bg-gray-200 p-6 rounded shadow-md h-5/6 mt-4">
+            { user.type=="PAT" && data?
+                 <PrescriptionList id={user.user.id} pres={data.content} tPages={data.totalPages}/>
+                                    :<PatientList setUser={setUser}/>
+            }
             </div>
         </div>
     );
 };
 
 export default MainPage;
+

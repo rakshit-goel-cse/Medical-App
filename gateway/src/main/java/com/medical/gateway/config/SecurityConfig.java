@@ -44,7 +44,11 @@ public class SecurityConfig {
 	SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
 		http.csrf(csrf->csrf.disable())
         .authorizeHttpRequests((req) -> req
-        		.requestMatchers("/user/login").permitAll()
+        		.requestMatchers("/user/login","/swagger-ui/**",
+                        "/v3/api-docs/**",
+                        "/v3/api-docs.yaml",
+                        "/swagger-resources/**",
+                        "/webjars/**").permitAll()
         		.requestMatchers("/user/getPassword").denyAll()
         		.anyRequest().authenticated()
         	);

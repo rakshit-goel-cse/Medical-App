@@ -1,24 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-    <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.GetMapping"/>
-    <fullyQualifiedTypeName name="org.springframework.web.filter.OncePerRequestFilter"/>
-    <fullyQualifiedTypeName name="java.lang.Override"/>
-    <fullyQualifiedTypeName name="jakarta.websocket.server.ServerEndpoint"/>
-    <fullyQualifiedTypeName name="org.springframework.stereotype.Service"/>
-    <fullyQualifiedTypeName name="com.medical.gateway.dto.UserDto"/>
-    <fullyQualifiedTypeName name="org.springframework.security.core.context.SecurityContextHolder"/>
-    <fullyQualifiedTypeName name="org.springframework.security.authentication.UsernamePasswordAuthenticationToken"/>
-    <fullyQualifiedTypeName name="org.springframework.security.core.userdetails.UserDetails"/>
-    <fullyQualifiedTypeName name="java.net.Authenticator"/>
-    <fullyQualifiedTypeName name="org.springframework.security.web.authentication.WebAuthenticationDetails"/>
-    <fullyQualifiedTypeName name="org.springframework.security.web.authentication.WebAuthenticationDetailsSource"/>
-    <fullyQualifiedTypeName name="java.net.URI"/>
-    <fullyQualifiedTypeName name="com.medical.gateway.service.userService"/>
-    <fullyQualifiedTypeName name="org.springframework.security.authentication.AuthenticationManager"/>
     <fullyQualifiedTypeName name="org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder"/>
     <fullyQualifiedTypeName name="org.springframework.stereotype.Component"/>
     <fullyQualifiedTypeName name="io.jsonwebtoken.Jwts"/>
-    <fullyQualifiedTypeName name="java.util.Date"/>
     <fullyQualifiedTypeName name="java.security.Key"/>
     <fullyQualifiedTypeName name="io.jsonwebtoken.security.Keys"/>
     <fullyQualifiedTypeName name="io.jsonwebtoken.io.Decoders"/>
@@ -31,7 +15,6 @@
     <fullyQualifiedTypeName name="org.slf4j.LoggerFactory"/>
     <fullyQualifiedTypeName name="org.slf4j.Logger"/>
     <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.RequestMapping"/>
-    <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.RequestParam"/>
     <fullyQualifiedTypeName name="com.medical.userService.dto.user.UserLoginDto"/>
     <fullyQualifiedTypeName name="com.medical.userService.utils.JWTUtils"/>
     <fullyQualifiedTypeName name="ch.qos.logback.core.util.StringUtil"/>
@@ -43,9 +26,7 @@
     <fullyQualifiedTypeName name="java.lang.Exception"/>
     <fullyQualifiedTypeName name="org.springframework.context.annotation.Configuration"/>
     <fullyQualifiedTypeName name="org.springframework.beans.factory.annotation.Qualifier"/>
-    <fullyQualifiedTypeName name="org.springframework.beans.factory.annotation.Autowired"/>
     <fullyQualifiedTypeName name="com.medical.gateway.config.JWTRequestFilter"/>
-    <fullyQualifiedTypeName name="org.springframework.http.ResponseEntity"/>
     <fullyQualifiedTypeName name="org.springframework.http.HttpStatus"/>
     <fullyQualifiedTypeName name="org.springframework.web.cors.CorsConfigurationSource"/>
     <fullyQualifiedTypeName name="org.springframework.web.cors.CorsConfiguration"/>
@@ -55,9 +36,28 @@
     <fullyQualifiedTypeName name="java.util.HashMap"/>
     <fullyQualifiedTypeName name="java.util.Map"/>
     <fullyQualifiedTypeName name="com.medical.userService.dto.user.UserDto.UserType"/>
-    <fullyQualifiedTypeName name="com.medical.userService.entity.patient.PatientEntity"/>
-    <fullyQualifiedTypeName name="com.medical.userService.dto.patient.PatientDTO"/>
     <fullyQualifiedTypeName name="com.medical.userService.dto.user.UserDto"/>
-    <fullyQualifiedTypeName name="com.medical.userService.dto.employee.EmployeeDTO"/>
     <fullyQualifiedTypeName name="org.codehaus.jettison.json.JSONArray"/>
+    <fullyQualifiedTypeName name="java.util.Date"/>
+    <fullyQualifiedTypeName name="java.util.Calendar"/>
+    <fullyQualifiedTypeName name="java.sql.Date"/>
+    <fullyQualifiedTypeName name="java.util.concurrent.ThreadLocalRandom"/>
+    <fullyQualifiedTypeName name="java.util.Random"/>
+    <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.PathVariable"/>
+    <fullyQualifiedTypeName name="com.netflix.discovery.provider.Serializer"/>
+    <fullyQualifiedTypeName name="com.medical.userService.dto.patient.PatientDTO"/>
+    <fullyQualifiedTypeName name="com.medical.userService.service.PatientService"/>
+    <fullyQualifiedTypeName name="org.springframework.http.ResponseEntity"/>
+    <fullyQualifiedTypeName name="com.medical.userService.repository.PatientRepository"/>
+    <fullyQualifiedTypeName name="org.springframework.data.domain.PageRequest"/>
+    <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.RequestParam"/>
+    <fullyQualifiedTypeName name="java.util.List"/>
+    <fullyQualifiedTypeName name="org.springframework.data.domain.Page"/>
+    <fullyQualifiedTypeName name="com.medical.userService.entity.patient.PatientEntity"/>
+    <fullyQualifiedTypeName name="org.springframework.stereotype.Service"/>
+    <fullyQualifiedTypeName name="com.medical.userService.repository.EmployeeRepo"/>
+    <fullyQualifiedTypeName name="com.medical.userService.dto.employee.EmployeeDTO"/>
+    <fullyQualifiedTypeName name="java.util.Optional"/>
+    <fullyQualifiedTypeName name="org.springframework.beans.factory.annotation.Autowired"/>
+    <fullyQualifiedTypeName name="com.medical.userService.service.EmpService"/>
 </qualifiedTypeNameHistroy>

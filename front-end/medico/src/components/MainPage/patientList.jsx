@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Cookies from 'js-cookie';
 
-const PatientList = ({setPatient,setType}) => {
+const PatientList = ({setUser}) => {
     const [patient, setpatient] = useState([]);
     const [page,setPage]=useState(1);
     const [totalPages, setTotalPages] = useState(1);
@@ -34,18 +34,23 @@ const PatientList = ({setPatient,setType}) => {
         }
     };
 
-    const selectPatient = (pat) => {
+    const selectPatient = (event,pat) => {
+        event.preventDefault();
         console.log("Selected Patient: ",pat);
-        setPatient(pat);
-        setType("PAT");
+        setUser({
+            user:pat,
+            type:"PAT"
+        });
+        //setPatient(pat);
+        //setType("PAT");
     }
 
     return (
-        <div>
-            <h2>patient List</h2>
-            <ul>
+        <div className="flex flex-col h-full">
+            <h2 className='text-center font-bold -mt-4 mb-3'>Patients</h2>
+            <ul className='flex-grow overflow-y-auto'>
                 {patient && patient.map(pat => (
-                     <li className='border border-blue-500 p-2 mb-2 cursor-pointer' key={pat.id} onClick={() => selectPatient(pat)}>
+                     <li className='border border-blue-800 p-2 mb-2 cursor-pointer' key={pat.id} onClick={(e) => selectPatient(e,pat)}>
                      <div className="flex space-x-4">
                          <div><strong>Drug Name:</strong> {pat.name}</div>
                          <div><strong>DOB:</strong> {pat.dob}</div>
@@ -57,7 +62,7 @@ const PatientList = ({setPatient,setType}) => {
                 ))}
             </ul>
             {/* pageer*/ }
-            <div className="flex justify-between items-center mt-4">
+            <div className="flex justify-between items-center mt-2">
                 <span>Page {page} of {totalPages}</span>
                 <button className="bg-blue-500 text-white px-4 py-2 rounded" onClick={handlePrevPage} disabled={page == 1}>
                     Prev Page
