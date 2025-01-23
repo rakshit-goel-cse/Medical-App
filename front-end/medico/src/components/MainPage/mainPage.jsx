@@ -4,6 +4,7 @@ import Cookies from 'js-cookie';
 import UserHeader from './userHeader';
 import PrescriptionList from './prescriptionList';
 import PatientList from './patientList';
+import PrescriptionForm from './prescription';
 
 const MainPage = ({setLogedIn}) => {
     const [user, setUser] = useState({
@@ -12,6 +13,7 @@ const MainPage = ({setLogedIn}) => {
     });
     const [data,setData] = useState(null);
     const [backActive,setBackActive] = useState(true);
+    const [prescription, setPrescription] = useState(null);
 
     useEffect(() => {
         if(user.user && user.type==="PAT"){
@@ -73,24 +75,38 @@ const MainPage = ({setLogedIn}) => {
         setLogedIn(false);
     }
 
+    const doBackPage = () => {
+        prescription
+        ? setPrescription(null)
+        : setBackActive(null);
+    }
+
+    const showPatPres=()=>{
+        if(user.type=="PAT"){
+            if(prescription)
+                return <PrescriptionForm prescription={prescription} isEditable={false}/>;
+            else if(data) 
+                return <PrescriptionList id={user.user.id} pres={data.content} tPages={data.totalPages} setShowPrescription={setPrescription}/>;
+            else return <div>Loading...</div>;
+        }
+        return <PatientList setUser={setUser}/> ;
+    };
+
     return (
         <div className="main-page bg-gray-100 h-screen p-4">
             
             <UserHeader patient={user.user} type={user.type}/>
 
             <div className="flex justify-between items-center mb-4">
-                {backActive && user.type === "PAT" && (
-                    <button className="bg-blue-500 text-white px-4 py-2 rounded" onClick={() => setBackActive(null)}>Back</button>
+                {backActive || prescription && user.type === "PAT" && (
+                    <button className="bg-blue-500 text-white px-4 py-2 rounded" onClick={doBackPage}>Back</button>
                 )}
                 <button className="bg-blue-500 text-white px-4 py-2 rounded ml-auto" onClick={doLogOut}>Log Out</button>
             </div>
 
 
             <div className="future-data bg-gray-200 p-6 rounded shadow-md h-5/6 mt-4">
-            { user.type=="PAT" && data?
-                 <PrescriptionList id={user.user.id} pres={data.content} tPages={data.totalPages}/>
-                                    :<PatientList setUser={setUser}/>
-            }
+            { showPatPres() }
             </div>
         </div>
     );

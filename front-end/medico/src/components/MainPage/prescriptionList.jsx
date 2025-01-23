@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Cookies from 'js-cookie';
 
-const PrescriptionList = ({id,pres,tPages}) => {
+const PrescriptionList = ({id,pres,tPages,setShowPrescription}) => {
 
     const [prescriptions, setPrescriptions] = useState(pres);
     const [page,setPage]=useState(1);
@@ -43,7 +43,7 @@ const PrescriptionList = ({id,pres,tPages}) => {
             <h2 className='text-center font-bold -mt-4 mb-3'>Prescriptions</h2>
             <ul className='flex-grow overflow-y-auto'>
                 {prescriptions && prescriptions.map(prescription => (
-                     <li className='border border-blue-500 p-2 mb-2 cursor-pointer' key={prescription.id} onClick={() => "console.log('Clicked')"}>
+                     <li className='border border-blue-500 p-2 mb-2 cursor-pointer' key={prescription.id} onClick={() => setShowPrescription(prescription)}>
                      <div className="flex space-x-4">
                         <div><strong>Pres Id:</strong> {prescription.id}</div>
                          <div><strong>Drug Name:</strong> {prescription.drug.name}</div>
